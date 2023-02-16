@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include <chrono>
-#include <cstdlib>
-#include "omp.h"
+//#include <chrono>
+//#include <cstdlib>
+//#include "omp.h"
 using namespace std;
 
 void printArray(int arr[],int n){
@@ -113,7 +113,7 @@ void mergeSort_para(int arr[], int l, int r){
     // m is the point where the array is divided into two subarrays
     int m = l + (r - l) / 2;
     
-    #pragma omp parallel sections num_threads(10)
+    #pragma omp parallel sections num_threads(2)
     {
     #pragma omp section
     {
@@ -139,6 +139,7 @@ int main()
 	int arr[n],arr1[n],arr2[n],arr3[n],arr4[n];
 	for (int i=0;i<n;i++){	
 		arr[i] = rand()%100;
+		//cin>>arr[i];
 	}
 	
 	for (int i=0;i<n;i++){
@@ -168,7 +169,7 @@ int main()
 	
 	cout<<"Bubble Sort Parallel:\n";
 	auto start2 = chrono::steady_clock::now();
-	bubbleSort(arr1,n);
+	bubbleSort_para(arr1,n);
 	auto end2 = chrono::steady_clock::now();
 	chrono::duration<double, milli> fp_ms2 = end2- start2;
 	cout<<fp_ms2.count()<<" ms\n";
